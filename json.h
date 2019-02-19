@@ -8,6 +8,8 @@
  #include <assert.h>
  #include "MyString.h"
 
+typedef void *yyscan_t;
+
  enum {
 	  JSON_VALUE_TYPE_INTEGER = 0 ,
 	  JSON_VALUE_TYPE_DOUBLE,
@@ -108,8 +110,9 @@
  };
 
  JSONValue *json_parser(FILE *fp);
- int yylex();
- int yyparse();
+ JSONValue *json_parser_ex(char *pIn);
+ //int yylex();
+ int yyparse(yyscan_t yyscanner);
 
  JSONValue *json_new_value();
  JSONValue *json_new_integer(int i);

@@ -5,7 +5,7 @@
 #include "json.h"
 #include "parser.tab.h"								
 
-extern int yyerror(const char *s);
+extern int yyerror(yyscant_t *yyscanner, const char *s);
 
 static MyString *share_string;
 static unichar ucs2_hi;
@@ -37,6 +37,11 @@ int my_yyinput(char *buf, int max_size);
 //}
 
 %}
+
+%option reentrant
+%option bison-bridge
+%option debug
+%option warn
 
 %x STRING
 %x STRING_UCS_2
