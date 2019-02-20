@@ -6,9 +6,8 @@
  #include <string.h>
  #include <ctype.h>
  #include <assert.h>
+ #include "parser.tab.h"
  #include "MyString.h"
-
-typedef void *yyscan_t;
 
  enum {
 	  JSON_VALUE_TYPE_INTEGER = 0 ,
