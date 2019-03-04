@@ -5,7 +5,7 @@ BIN = JSON
 FLAGS =  -O2 -Wall
 LINK_LIB = 
 OBJS        = main.o json.o MyString.o parser.tab.o lex.yy.o
-GENERAT_SRC = parser.tab.c parser.tab.h lex.yy.c
+GENERAT_SRC = parser.tab.c parser.tab.h lex.yy.c lex.yy.h
 
 
 all: lex.yy.c parser.tab.c $(BIN)
@@ -24,9 +24,10 @@ $(BIN): $(OBJS)
 	$(CC) $(FLAGS) -c $<
 
 main.o        : json.h
-json.o        : json.h MyString.h
+json.o        : json.h MyString.h parser.tab.h lex.yy.h
 MyString.o    : MyString.h	
 parser.tab.o  : parser.tab.c parser.tab.h
+lex.yy.o      : lex.yy.c lex.yy.h
 
 .PHONY: clean
 clean:

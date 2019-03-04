@@ -3,6 +3,8 @@
  #include <stdlib.h>
  #include <string.h>
  #include "json.h"
+ #include "parser.tab.h"
+ #include "lex.yy.h"
 
  int yyerror(yyscan_t yyscanner, const char *s);
 

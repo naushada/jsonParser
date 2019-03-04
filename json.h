@@ -1,13 +1,14 @@
 #ifndef __JSON_H__
- #define __JSON_H__
+#define __JSON_H__
 
  #include <stdio.h>
  #include <stdlib.h>
  #include <string.h>
  #include <ctype.h>
  #include <assert.h>
- #include "parser.tab.h"
  #include "MyString.h"
+ #include "lex.yy.h"
+ #include "parser.tab.h"
 
  enum {
 	  JSON_VALUE_TYPE_INTEGER = 0 ,
@@ -111,8 +112,13 @@
  JSONValue *json_parser(FILE *fp);
  JSONValue *json_parser_ex(char *pIn);
  //int yylex();
- int yyparse(yyscan_t yyscanner);
-
+#if 0
+ extern int yyparse(yyscan_t yyscanner);
+ extern int yylex_init(yyscan_t* ptr_yy_globals);
+ extern void yy_delete_buffer (YY_BUFFER_STATE  b , yyscan_t yyscanner);
+ extern YY_BUFFER_STATE yy_scan_buffer (char *base,yy_size_t size ,yyscan_t yyscanner );
+ extern YY_BUFFER_STATE yy_scan_string (yyconst char *yy_str ,yyscan_t yyscanner );
+#endif
  JSONValue *json_new_value();
  JSONValue *json_new_integer(int i);
  JSONValue *json_new_double(double d);

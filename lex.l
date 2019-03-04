@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "MyString.h"
-#include "json.h"
 #include "parser.tab.h"								
+#include "json.h"
 
 extern int yyerror(yyscant_t *yyscanner, const char *s);
 
@@ -42,6 +42,7 @@ int my_yyinput(char *buf, int max_size);
 %option bison-bridge
 %option debug
 %option warn
+%option header-file="lex.yy.h"
 
 %x STRING
 %x STRING_UCS_2

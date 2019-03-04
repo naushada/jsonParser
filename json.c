@@ -1,25 +1,27 @@
 #include "json.h"
+#include "parser.tab.h"
 
 JSONValue *json_parser_ex(char *pIn) 
 {
-  yyscan_t scanner;
+  yyscan_t yyscanner;
+	extern JSONValue *json;
 
-  if(yylex_init(&scanner))
+  if(yylex_init(&yyscanner))
   {
     fprintf(stderr, "%s:%d initialization to scanner failed\n", __FILE__, __LINE__);
     return((JSONValue *)0);				
   }
 
-  YY_BUFFER_STATE buff = pIn ? yy_scan_string(pIn, scanner) : 0;
+  YY_BUFFER_STATE buff = pIn ? yy_scan_string(pIn, yyscanner) : 0;
 
-		if(yyparse(scanner))
+		if(yyparse(yyscanner))
   {
     fprintf(stderr, "%s:%d yyparse failed", __FILE__, __LINE__);
     return((JSONValue *)0);				
   }
 
-  yy_delete_buffer(buff, scanner);
-  yylex_destroy(scanner);
+  yy_delete_buffer(buff, yyscanner);
+  yylex_destroy(yyscanner);
 
 	 return(json);
 }
