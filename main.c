@@ -1,4 +1,6 @@
 #include "json.h"
+#include "lex.yy.h"
+#include "parser.tab.h"
 
 int main(int argc, char **argv) {
 	FILE *fp = stdin;

@@ -7,8 +7,6 @@
  #include <ctype.h>
  #include <assert.h>
  #include "MyString.h"
- #include "lex.yy.h"
- #include "parser.tab.h"
 
  enum {
 	  JSON_VALUE_TYPE_INTEGER = 0 ,

@@ -21,7 +21,7 @@
 
 /*! For Re-entrant parser*/
 %define api.pure full
-%param   { yyscan_t yyscanner }
+%param   {yyscan_t yyscanner}
 
 /* %token <fieldname> token OR
  * %type  <fieldname> non-terminal
