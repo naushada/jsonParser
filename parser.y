@@ -11,6 +11,11 @@
  JSONValue *json;
 %}
 
+/*! This piece of code is copied into header file verbatim */
+%code requires {
+  typedef void *yyscan_t; 
+}
+
 %union {
    JSONObject  *jobject;
    JSONMember  *jmember;

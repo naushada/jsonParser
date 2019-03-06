@@ -1,5 +1,6 @@
 #include "json.h"
 #include "parser.tab.h"
+#include "lex.yy.h"
 
 JSONValue *json_parser_ex(char *pIn) 
 {
@@ -25,7 +26,7 @@ JSONValue *json_parser_ex(char *pIn)
 
 	 return(json);
 }
-
+#if 0
 JSONValue *json_parser(FILE *fp) {
 	 							
 	 extern FILE *yyin;
@@ -39,6 +40,7 @@ JSONValue *json_parser(FILE *fp) {
 
 	 return json;
  }
+#endif
 
 JSONValue *json_new_value() {
 	 JSONValue *value = (JSONValue *) malloc(sizeof(JSONValue));

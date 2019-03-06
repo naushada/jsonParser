@@ -1,18 +1,18 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "MyString.h"
 #include "parser.tab.h"								
+#include "MyString.h"
 #include "json.h"
 
-extern int yyerror(yyscant_t *yyscanner, const char *s);
+extern int yyerror(yyscan_t yyscanner, const char *s);
 
 static MyString *share_string;
 static unichar ucs2_hi;
 int my_yyinput(char *buf, int max_size);
 
 //extern "C"{
-    int yywrap(void){
+    int yywrap(yyscan_t yyscanner, void){
       return 1;
     }
 
@@ -66,32 +66,32 @@ hex      [0-9a-fA-F]
 <INITIAL>{space}*   ;
 
 <INITIAL>"true" {
-    yylval.jvalue = json_new_true();
+    yylval->jvalue = json_new_true();
     return LITERAL;
 }
 
 <INITIAL>"false" {
-    yylval.jvalue = json_new_false();
+    yylval->jvalue = json_new_false();
     return LITERAL;
 }
 
 <INITIAL>"null" {
-    yylval.jvalue = json_new_null();
+    yylval->jvalue = json_new_null();
     return LITERAL;
 }
 
 <INITIAL>{integer} {
-    yylval.jvalue = json_new_integer(atoi(yytext));
+    yylval->jvalue = json_new_integer(atoi(yytext));
     return LITERAL;
 }
 
 <INITIAL>{number} {
-    yylval.jvalue = json_new_double(atof(yytext));
+    yylval->jvalue = json_new_double(atof(yytext));
     return LITERAL;
 }
 
 <INITIAL>({integer}|{number})[eE][+-]?{integer}+ {
-    yylval.jvalue = json_new_double(strtod(yytext, NULL));
+    yylval->jvalue = json_new_double(strtod(yytext, NULL));
     return LITERAL;
 }
 
@@ -101,12 +101,12 @@ hex      [0-9a-fA-F]
 }
 
 <INITIAL>. {
-	yyerror("Syntax Error!!");
+	yyerror(yyscanner, "Syntax Error!!");
 }
 
 <STRING>\" {
     BEGIN INITIAL;
-    yylval.jvalue = json_new_string(share_string->str);
+    yylval->jvalue = json_new_string(share_string->str);
     free_string(share_string);
     return lSTRING;
 }
@@ -142,7 +142,7 @@ hex      [0-9a-fA-F]
     if (hi < 0xdc00) {
         sscanf(yytext + 2, "%4x", &lo);
         if (lo < 0xdc00 || lo >= 0xdfff) {
-            yyerror("UCS-2 String Error");
+            yyerror(yyscanner, "UCS-2 String Error");
         }
         hi = ((hi - 0xd800) << 16) + (lo - 0xdc00) + 0x10000;
         hi = unicode2utf8(hi);
@@ -150,12 +150,12 @@ hex      [0-9a-fA-F]
         my_chrcat(share_string, (hi >>  8) & 0xff);
         my_chrcat(share_string, hi & 0xff);
     } else {
-        yyerror("UCS-2 String Error");
+        yyerror(yyscanner, "UCS-2 String Error");
     }
     BEGIN STRING;
 }
 <STRING,STRING_UCS_2><<EOF>> {
-	yyerror("Unterminated string!");
+	yyerror(yyscanner, "Unterminated string!");
 	yyterminate();
 }
 
