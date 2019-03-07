@@ -5,7 +5,6 @@
 int main(int argc, char **argv) {
 	FILE *fp = stdin;
 	JSONValue *json;
-	JSONValue *tmpJson;
 
 	if (argc >= 2) {
 		if (!(fp = fopen(argv[1], "r"))) {
@@ -16,15 +15,26 @@ int main(int argc, char **argv) {
 
   /*! Read input from File now.*/
   char buff[2048];
-  int len = 0;
+  int ret = 0;
 
-  fread(buff, 2048, 1, fp);
-  
-	if ((json = json_parser_ex(buff))) {
+  ret = fread(buff, 2048, 1, fp);
+  if (ret < 0)
+  {
+    fprintf(stderr, "\nReading from File Failed\n");
+    fclose(fp);
+    return(-1);
+  }
+
+  fclose(fp);
+ 
+	if ((json = json_parser_ex(buff))) 
+  {
 		json_print(stdout, json);
 		double d_val = json_value_at_index(json_value_at_key(json, "num" ), 9 )->d_value;
 		fprintf(stderr, "Value num[9] = %f\n", d_val);
-	} else {
+	} 
+  else 
+  {
 		printf("Json error!\n");
 	}
 
