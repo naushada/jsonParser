@@ -14,7 +14,13 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	if ((json = json_parser(fp))) {
+  /*! Read input from File now.*/
+  char buff[2048];
+  int len = 0;
+
+  fread(buff, 2048, 1, fp);
+  
+	if ((json = json_parser_ex(buff))) {
 		json_print(stdout, json);
 		double d_val = json_value_at_index(json_value_at_key(json, "num" ), 9 )->d_value;
 		fprintf(stderr, "Value num[9] = %f\n", d_val);

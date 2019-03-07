@@ -12,10 +12,10 @@ static unichar ucs2_hi;
 int my_yyinput(char *buf, int max_size);
 
 //extern "C"{
-    int yywrap(yyscan_t yyscanner){
+    int yywrap(yyscan_t yyscanner) {
       return 1;
     }
-
+#if 0
     int my_yyinput(char *buf, int max_size) {
       int len;
       char c;
@@ -34,6 +34,7 @@ int my_yyinput(char *buf, int max_size);
 						fprintf(stderr, "\nValue of len is %d\n", len);
       return len;
     }
+#endif
 //}
 
 %}
