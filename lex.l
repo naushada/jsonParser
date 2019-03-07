@@ -12,7 +12,7 @@ static unichar ucs2_hi;
 int my_yyinput(char *buf, int max_size);
 
 //extern "C"{
-    int yywrap(yyscan_t yyscanner, void){
+    int yywrap(yyscan_t yyscanner){
       return 1;
     }
 
