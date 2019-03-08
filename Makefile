@@ -15,7 +15,7 @@ json_lex.yy.c: json_lex.l
 	$(LEX) $^
 
 json_parser.tab.c: json_parser.y
-	$(YACC) -d -b parser $^
+	$(YACC) -d -b json_parser $^
 
 $(BIN): $(OBJS)
 	$(CC) $(FLAGS) -o $@  $^  $(LINK_LIB)
