@@ -23,6 +23,7 @@ int yywrap(yyscan_t yyscanner)
 %option debug
 %option warn
 %option header-file="json_lex.yy.h"
+%option outfile="json_lex.yy.c"
 
 %x STRING
 %x STRING_UCS_2
