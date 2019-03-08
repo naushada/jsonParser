@@ -11,31 +11,10 @@ static MyString *share_string;
 static unichar ucs2_hi;
 int my_yyinput(char *buf, int max_size);
 
-//extern "C"{
-    int yywrap(yyscan_t yyscanner) {
-      return 1;
-    }
-#if 0
-    int my_yyinput(char *buf, int max_size) {
-      int len;
-      char c;
-      extern FILE *yyin;
-
-      if(feof(yyin)) {
-        return 0;
-      }
-
-      for(len = 0; len < max_size; len++) {
-        if((c = fgetc(yyin)) == EOF) {
-          break;
-        }
-        buf[len] = c;
-      }
-						fprintf(stderr, "\nValue of len is %d\n", len);
-      return len;
-    }
-#endif
-//}
+int yywrap(yyscan_t yyscanner) 
+{
+  return 1;
+}
 
 %}
 

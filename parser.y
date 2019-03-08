@@ -78,7 +78,7 @@ element
 
 %%
 
-/* Routines Section*/
+/*! Routines Section */
 int yyerror(yyscan_t scanner, const char *s) {
      printf( "Error: %s \n " , s);
      return 0 ;

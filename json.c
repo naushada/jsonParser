@@ -26,21 +26,6 @@ JSONValue *json_parser_ex(char *pIn)
 
 	 return(json);
 }
-#if 0
-JSONValue *json_parser(FILE *fp) {
-	 							
-	 extern FILE *yyin;
-	 extern JSONValue *json;
-
-	 yyin = fp;
-  
-  if(yyparse()) {
-		  return NULL;
-		}
-
-	 return json;
- }
-#endif
 
 JSONValue *json_new_value() {
 	 JSONValue *value = (JSONValue *) malloc(sizeof(JSONValue));
