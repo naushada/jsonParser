@@ -6,7 +6,7 @@
  #include <string.h>
  #include <ctype.h>
  #include <assert.h>
- #include "MyString.h"
+ #include "myString.h"
 
  enum {
 	  JSON_VALUE_TYPE_INTEGER = 0 ,

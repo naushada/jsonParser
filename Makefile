@@ -4,17 +4,17 @@ LEX = flex
 BIN = JSON
 FLAGS =  -O2 -Wall
 LINK_LIB = 
-OBJS        = main.o json.o MyString.o parser.tab.o lex.yy.o
-GENERAT_SRC = parser.tab.c parser.tab.h lex.yy.c lex.yy.h
+OBJS        = main.o json.o myString.o json_parser.tab.o json_lex.yy.o
+GENERAT_SRC = json_parser.tab.c json_parser.tab.h json_lex.yy.c json_lex.yy.h
 
 
-all: lex.yy.c parser.tab.c $(BIN)
+all: json_lex.yy.c json_parser.tab.c $(BIN)
 .PHONY: all
 
-lex.yy.c: lex.l
+json_lex.yy.c: json_lex.l
 	$(LEX) $^
 
-parser.tab.c: parser.y
+json_parser.tab.c: json_parser.y
 	$(YACC) -d -b parser $^
 
 $(BIN): $(OBJS)
@@ -24,10 +24,10 @@ $(BIN): $(OBJS)
 	$(CC) $(FLAGS) -c $<
 
 main.o        : json.h
-json.o        : json.h MyString.h parser.tab.h lex.yy.h
-MyString.o    : MyString.h	
-parser.tab.o  : parser.tab.c parser.tab.h
-lex.yy.o      : lex.yy.c lex.yy.h
+json.o        : json.h myString.h json_parser.tab.h json_lex.yy.h
+myString.o    : myString.h	
+json_parser.tab.o  : json_parser.tab.c json_parser.tab.h
+json_lex.yy.o      : json_lex.yy.c json_lex.yy.h
 
 .PHONY: clean
 clean:
