@@ -1,28 +1,28 @@
 %{
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
- #include "json.h"
- #include "json_parser.tab.h"
- #include "json_lex.yy.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "json.h"
+#include "json_parser.tab.h"
+#include "json_lex.yy.h"
 
- int yyerror(yyscan_t yyscanner, const char *s);
+int yyerror(yyscan_t yyscanner, const char *s);
 
- JSONValue *json;
+JSONValue *json;
 %}
 
 /*! This piece of code is copied into header file verbatim */
 %code requires {
-  #include "json.h"
-  typedef void *yyscan_t;
+#include "json.h"
+typedef void *yyscan_t;
 }
 
 %union {
-   JSONObject  *jobject;
-   JSONMember  *jmember;
-   JSONArray   *jarray;
-   JSONElement *jelement;
-   JSONValue   *jvalue;
+  JSONObject  *jobject;
+  JSONMember  *jmember;
+  JSONArray   *jarray;
+  JSONElement *jelement;
+  JSONValue   *jvalue;
 }
 
 /*! For Re-entrant parser*/
@@ -53,27 +53,27 @@ input
 value
  : LITERAL
  | lSTRING
- | object                            { $$ = json_new_object_value( $1 ); }
- | array                             { $$ = json_new_array_value( $1 ); }
+ | object      { $$ = json_new_object_value( $1 ); }
+ | array       { $$ = json_new_array_value( $1 ); }
  ;
 
 object
- : '{' '}'                           { $$ = json_new_object( NULL ); }
- | '{' member '}'                    { $$ = json_new_object( $2 );}
+ : '{' '}'         { $$ = json_new_object( NULL ); }
+ | '{' member '}'  { $$ = json_new_object( $2 );}
  ;
 
 member
- : lSTRING ':' value                 { $$ = json_new_member( $1 , $3 ); }
- | member ',' lSTRING ':' value      { $$ = json_value_add_member( $1 , $3 , $5 );}
+ : lSTRING ':' value             { $$ = json_new_member( $1 , $3 ); }
+ | member ',' lSTRING ':' value  { $$ = json_value_add_member( $1 , $3 , $5 );}
  ;
 
 array
- : '[' ']'                           { $$ = json_new_array( NULL ); }
- | '[' element ']'                   { $$ = json_new_array( $2 );}
+ : '[' ']'            { $$ = json_new_array( NULL ); }
+ | '[' element ']'    { $$ = json_new_array( $2 );}
 
 element
- : value                             { $$ = json_new_element( $1 ); }
- | element ',' value                 { $$ = json_value_add_element( $1 , $3 ); }
+ : value              { $$ = json_new_element( $1 ); }
+ | element ',' value  { $$ = json_value_add_element( $1 , $3 ); }
  ;
 
 %%

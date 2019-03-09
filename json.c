@@ -5,7 +5,7 @@
 JSONValue *json_parser_ex(char *pIn) 
 {
   yyscan_t yyscanner;
-	extern JSONValue *json;
+	 extern JSONValue *json;
 
   if(yylex_init(&yyscanner))
   {

@@ -4,7 +4,7 @@
 
 int main(int argc, char **argv) {
 	FILE *fp = stdin;
-	JSONValue *json;
+	JSONValue *my_json;
 
 	if (argc >= 2) {
 		if (!(fp = fopen(argv[1], "r"))) {
@@ -27,10 +27,10 @@ int main(int argc, char **argv) {
 
   fclose(fp);
  
-	if ((json = json_parser_ex(buff))) 
+	if ((my_json = json_parser_ex(buff))) 
   {
-		json_print(stdout, json);
-		double d_val = json_value_at_index(json_value_at_key(json, "num" ), 9 )->d_value;
+		json_print(stdout, my_json);
+		double d_val = json_value_at_index(json_value_at_key(my_json, "num" ), 9 )->d_value;
 		fprintf(stderr, "Value num[9] = %f\n", d_val);
 	} 
   else 
@@ -38,5 +38,6 @@ int main(int argc, char **argv) {
 		printf("Json error!\n");
 	}
 
+  free(my_json);  		
 	return 0;
 }
