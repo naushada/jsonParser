@@ -46,4 +46,7 @@ obj/json_lex.yy.o      : parser/json_lex.yy.c parser/json_lex.yy.h
 
 .PHONY: clean
 clean:
-	 rm -f $(BIN) $(OBJS) $(GENERAT_SRC)
+	rm -f $(BIN) $(OBJS) $(GENERAT_SRC)
+	@rm -fr parser
+	@rm -fr obj
+	@rm -fr bin	
