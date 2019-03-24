@@ -1,7 +1,7 @@
 CC = gcc
 YACC = bison
 LEX = flex
-BIN = JSON
+BIN = bin/JSON
 FLAGS =  -O2 -Wall
 INC = -I./ -I./inc -I./parser
 LINK_LIB = 
@@ -18,10 +18,10 @@ build:
 	@mkdir -p obj
 	@mkdir -p bin
 
-parser/json_lex.yy.c: json_lex.l
+parser/json_lex.yy.c: grammar/json_lex.l
 	$(LEX) $^
 
-parser/json_parser.tab.c: json_parser.y
+parser/json_parser.tab.c: grammar/json_parser.y
 	$(YACC) -d -b json_parser $^ -o $@
 
 $(BIN): $(OBJS)
