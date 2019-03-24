@@ -1,6 +1,6 @@
 #include "json.h"
-#include "json_parser.tab.h"
-#include "json_lex.yy.h"
+#include "parser/json_parser.tab.h"
+#include "parser/json_lex.yy.h"
 
 JSONValue *json_parser_ex(char *pIn) 
 {

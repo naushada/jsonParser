@@ -22,8 +22,8 @@ int yywrap(yyscan_t yyscanner)
 %option bison-bridge
 %option debug
 %option warn
-%option header-file="json_lex.yy.h"
-%option outfile="json_lex.yy.c"
+%option header-file="parser/json_lex.yy.h"
+%option outfile="parser/json_lex.yy.c"
 
 %x STRING
 %x STRING_UCS_2
