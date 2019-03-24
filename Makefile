@@ -1,7 +1,7 @@
 CC = gcc
 YACC = bison
 LEX = flex
-BIN = bin/JSON
+BIN = bin/libjson.so
 FLAGS =  -O2 -Wall
 INC = -I./ -I./inc -I./parser
 LINK_LIB = 
@@ -24,8 +24,9 @@ parser/json_lex.yy.c: grammar/json_lex.l
 parser/json_parser.tab.c: grammar/json_parser.y
 	$(YACC) -d -b json_parser $^ -o $@
 
+# /*Creating Shared library i.e. libjson.so */
 $(BIN): $(OBJS)
-	$(CC) $(FLAGS) -o $@  $^  $(LINK_LIB)
+	$(CC) $(FLAGS) -shared -o $@  $^  $(LINK_LIB)
 
 # /* Creating Object files in obj directory from source files */
 
